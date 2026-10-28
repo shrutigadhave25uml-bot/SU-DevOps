@@ -1,0 +1,32 @@
+---
+- name: Ensure application data directory exists
+  ansible.builtin.file:
+    path: /opt/smart-library/data
+    state: directory
+    owner: root
+    group: root
+    mode: "0750"
+
+- name: Validate application image is configured
+  ansible.builtin.assert:
+    that:
+      - app_image is defined
+      - app_image | length > 0
+      - "'REPLACE_WITH_YOUR_LIBRARY_APP_IMAGE' not in app_image"
+    fail_msg: "Set APP_IMAGE to a valid image you own before running deployment."
+
+- name: Pull application image
+  community.docker.docker_image:
+    name: "{{ app_image }}"
+    source: pull
+
+- name: Run application container
+  community.docker.docker_container:
+    name: library-app
+    image: "{{ app_image }}"
+    state: started
+    restart_policy: always
+    published_ports:
+      - "127.0.0.1:{{ app_container_port }}:{{ app_container_port }}"
+    volumes:
+      - "/opt/smart-library/data:/app/data"
