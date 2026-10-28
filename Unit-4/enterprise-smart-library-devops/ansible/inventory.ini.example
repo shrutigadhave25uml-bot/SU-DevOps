@@ -1,4 +1,0 @@
-[library_servers]
-# scripts/deploy.sh generates inventory.ini from Terraform output.
-# Example:
-# library-host ansible_host=203.0.113.20 ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/library-aws-key
