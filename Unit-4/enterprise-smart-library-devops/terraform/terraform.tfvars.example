@@ -1,0 +1,8 @@
+aws_region       = "us-east-1"
+project_name     = "smart-library"
+environment      = "dev"
+key_name         = "library-aws-key"
+ssh_allowed_cidr = "203.0.113.10/32" # REPLACE with your public IP/CIDR
+app_allowed_cidr = "127.0.0.1/32"    # Keep restricted unless direct port 5000 is needed
+app_image        = "REPLACE_WITH_YOUR_LIBRARY_APP_IMAGE"
+health_path      = "/api/health"
